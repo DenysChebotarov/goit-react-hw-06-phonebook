@@ -1,19 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import css from './Filter.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import s from './Filter.module.css';
+import { changeFilter } from 'redux/contacts/contacts-actions';
+import { getFilter } from 'redux/contacts/contacts-selectors';
 
-export default function Filter({ value, handleChange }) {
+function Filter() {
+  const value = useSelector(getFilter);
+  const dispatch = useDispatch();
   return (
-    <input
-      className={css.input}
-      name="filter"
-      type="text"
-      value={value}
-      onChange={handleChange}
-    />
+    <div className={s.container}>
+      <label className={s.label}>
+        Find contacts by name
+        <input
+          className={s.input}
+          type="text"
+          value={value}
+          placeholder="Name"
+          onChange={e =>
+            dispatch(changeFilter(e.target.value.toLocaleLowerCase()))
+          }
+        />
+      </label>
+    </div>
   );
 }
-Filter.propTypes = {
-  value: PropTypes.string,
-  handleChange: PropTypes.func,
-};
+
+export default Filter;
