@@ -1,11 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
 import s from './Filter.module.css';
-import { changeFilter } from 'redux/contacts/contacts-actions';
-import { getFilter } from 'redux/contacts/contacts-selectors';
+
+import { filter } from 'redux/contactSlice';
 
 function Filter() {
-  const value = useSelector(getFilter);
   const dispatch = useDispatch();
+  const value = useSelector(state => state.contacts.filter);
+  const onChange = e => {
+    dispatch(filter(e.currentTarget.value.toLocaleLowerCase()));
+  };
+
   return (
     <div className={s.container}>
       <label className={s.label}>
@@ -15,9 +19,7 @@ function Filter() {
           type="text"
           value={value}
           placeholder="Name"
-          onChange={e =>
-            dispatch(changeFilter(e.target.value.toLocaleLowerCase()))
-          }
+          onChange={onChange}
         />
       </label>
     </div>

@@ -1,6 +1,6 @@
 import Container from './Container/Container';
 import ContactForm from './ContactForm';
-import Filter from './Filter';
+import Filter from './Filter/Filter';
 import ContactList from './ContactList';
 import { useSelector } from 'react-redux';
 
